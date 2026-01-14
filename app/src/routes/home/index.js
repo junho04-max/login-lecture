@@ -1,12 +1,10 @@
+"use strict";
+
 const express = require("express");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.render("home/index"); 
-});
+const ctrl = require("./home.ctrl");
 
-router.get("/login", (req, res) => {
-  res.render("home/login");
-});
+router.get("/login", ctrl.output.login);
 
 module.exports = router;

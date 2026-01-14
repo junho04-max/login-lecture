@@ -1,22 +1,23 @@
 "use strict";
 
-// 모듈
 const express = require("express");
-const app = express();
 const path = require("path");
 
-// 라우팅
-const home = require("./src/routes/home");
+const app = express();
 
-// 앱 세팅
-app.set("views", path.join(__dirname, "./src/views"));
-app.set("views", "./src/views");
-app.set("view engine", "ejs");
-app.use(express.static(`${__dirname}/src/public`));
-
-app.use("/", home);
-
-module.exports = app;
+// body 파싱
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// 정적 파일
+app.use(express.static(path.join(__dirname, "src", "public")));
+
+// 뷰 설정
+app.set("views", path.join(__dirname, "src", "views"));
+app.set("view engine", "ejs");
+
+// 라우터
+const home = require("./src/routes/home"); // ✅ routes 쪽
+app.use("/", home);
+
+module.exports = app;
